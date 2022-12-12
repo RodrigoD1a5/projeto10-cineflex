@@ -1,11 +1,20 @@
 import styled from "styled-components"
 
-export default function Assento(props){
-    const {id, name, isAvailable}= props
-    return(
-        <EstiloAssento isAvailable={isAvailable} >
-            {name}
-        </EstiloAssento>
+export default function Assento(props) {
+    const { id, name, isAvailable , assentosSelecionados, selecionarAssento} = props
+    
+    return (
+        <>  
+            {assentosSelecionados.includes(id)?
+            <EstiloAssentoSelecionado onClick={()=> selecionarAssento(id, isAvailable)}>
+                {name}
+            </EstiloAssentoSelecionado>
+            :
+            <EstiloAssento isAvailable={isAvailable} onClick={()=>selecionarAssento(id, isAvailable)} >
+                {name}
+            </EstiloAssento>
+            }
+        </>
 
     )
 }
@@ -22,4 +31,19 @@ const EstiloAssento = styled.button`
     font-family: 'Roboto';
     font-weight: 400;
     font-size: 11px;
+    cursor: pointer;
+`
+const EstiloAssentoSelecionado = styled.button`
+    width: 26px;
+    height: 26px;
+    text-align: center;
+
+    background-color: #1AAE9E ;
+    border: 1px solid #0E7D71;
+    border-radius: 50%;   
+
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-size: 11px;
+    cursor: pointer;
 `

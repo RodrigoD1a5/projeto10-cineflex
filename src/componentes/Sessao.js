@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 export default function Sessao(props) {
@@ -6,7 +7,10 @@ export default function Sessao(props) {
         <EstiloSessao>
             <p>{weekday} - {date}</p>
             <div>
-                {showtimes.map((s) => <button key={s.id}>{s.name}</button>)}
+                {showtimes.map((s) => 
+                <Link key={s.id} to ={`/assentos/${s.id}`}>
+                <button>{s.name}</button>
+                </Link>)}
             </div>
         </EstiloSessao>
     )

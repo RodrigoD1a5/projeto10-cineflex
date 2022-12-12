@@ -14,7 +14,7 @@ const EstiloHeader = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #C3CFD9;
+    background-color: #C3CFD9;
 
     font-family: 'Roboto';
     font-style: normal;

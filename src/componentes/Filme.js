@@ -1,11 +1,14 @@
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 export default function Filme(props) {
-    const { posterURL , tamanho} = props
+    const { id, posterURL, tamanho } = props
     return (
-        <EstiloFilme tamanho={tamanho}>
-            <img src={posterURL} />
-        </EstiloFilme>
+        <Link to= {`/sessoes/${id}`}>
+            <EstiloFilme tamanho={tamanho}>
+                <img src={posterURL} />
+            </EstiloFilme>
+        </Link>
     )
 }
 
@@ -18,6 +21,7 @@ const EstiloFilme = styled.div`
     box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
     background-color: #FFFFFF;
+    cursor: pointer;
     
     img{
         width: ${props => props.tamanho === "G" ? "129px" : "48px"};

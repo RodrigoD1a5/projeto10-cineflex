@@ -4,13 +4,20 @@ import Header from "./Header";
 import Home from "./Home";
 import Sessoes from "./Sessoes";
 import Sucesso from "./Sucesso";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 export default function App() {
   return (
-    <EstiloApp>
-      <Header/>
-      <Sucesso/>
-    </EstiloApp>
+    <BrowserRouter>
+      <EstiloApp>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/sessoes/:idFilme" element={<Sessoes/>}/>
+          <Route path="/assentos/:idSessao" element={<Assentos/>}/>
+        </Routes>
+      </EstiloApp>
+    </BrowserRouter>
   );
 }
 
