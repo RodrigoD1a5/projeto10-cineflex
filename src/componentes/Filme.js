@@ -5,7 +5,7 @@ export default function Filme(props) {
     const { id, posterURL, tamanho } = props
     return (
         <Link to= {`/sessoes/${id}`}>
-            <EstiloFilme tamanho={tamanho}>
+            <EstiloFilme tamanho={tamanho} data-test="movie">
                 <img src={posterURL} />
             </EstiloFilme>
         </Link>

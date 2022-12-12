@@ -89,19 +89,19 @@ export default function Assentos(props) {
                         <p>Indisponível</p>
                     </div>
                 </div>
-                <div className="dados">
+                <div className="dados" data-test="client-name">
                     <p>Nome do comprador:</p>
                     <input placeholder="Digite seu nome..." onChange={e => setNome(e.target.value)} />
                 </div>
-                <div className="dados">
+                <div className="dados" data-test="client-cpf">
                     <p>CPF do comprador:</p>
                     <input placeholder="Digite seu CPF..." onChange={e => setCpf(e.target.value)} />
                 </div>
                 <Link to={`/sucesso/${parametro.idSessao}`}>
-                    <button className="botao-reservar" onClick={()=>enviarReserva()}>Reservar assento(s)</button>
+                    <button className="botao-reservar" onClick={()=>enviarReserva()} data-test="book-seat-btn">Reservar assento(s)</button>
                 </Link>
             </EstiloAssentos>
-            <FooterAssentos>
+            <FooterAssentos data-test="footer">
                 <Filme posterURL={listaAssentos?.movie.posterURL} tamanho={"P"} />
                 <div>
                     <p>{listaAssentos?.movie.title}</p>

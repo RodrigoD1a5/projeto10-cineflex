@@ -6,11 +6,11 @@ export default function Assento(props) {
     return (
         <>  
             {ids?.includes(id)?
-            <EstiloAssentoSelecionado onClick={()=> selecionarAssento(id, name , isAvailable)}>
+            <EstiloAssentoSelecionado onClick={()=> selecionarAssento(id, name , isAvailable)} data-test="seat">
                 {name}
             </EstiloAssentoSelecionado>
             :
-            <EstiloAssento isAvailable={isAvailable} onClick={()=>selecionarAssento(id, name, isAvailable)} >
+            <EstiloAssento isAvailable={isAvailable} onClick={()=>selecionarAssento(id, name, isAvailable)} data-test="seat" >
                 {name}
             </EstiloAssento>
             }

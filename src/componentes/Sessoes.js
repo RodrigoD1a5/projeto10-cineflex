@@ -23,7 +23,7 @@ export default function Sessoes(){
             <EstiloSessoes>
                 {listaSessoes?.days.map((s)=> <Sessao weekday={s.weekday} date ={s.date} showtimes={s.showtimes} key={s.id}/>)}
             </EstiloSessoes>
-            <FooterSessao>
+            <FooterSessao data-test="footer">
                 <Filme posterURL={listaSessoes?.posterURL} tamanho={"P"}/>
                 <div>
                     <p>{listaSessoes?.title}</p>

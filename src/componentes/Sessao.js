@@ -4,11 +4,11 @@ import styled from "styled-components"
 export default function Sessao(props) {
     const { weekday, date, showtimes } = props
     return (
-        <EstiloSessao>
+        <EstiloSessao data-test="movie-day">
             <p>{weekday} - {date}</p>
             <div>
                 {showtimes.map((s) => 
-                <Link key={s.id} to ={`/assentos/${s.id}`}>
+                <Link key={s.id} to ={`/assentos/${s.id}`} data-test="showtime">
                 <button>{s.name}</button>
                 </Link>)}
             </div>

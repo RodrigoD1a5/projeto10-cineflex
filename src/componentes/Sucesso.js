@@ -28,21 +28,21 @@ export default function Sucesso(props){
     return(
         <EstiloSucesso>
             <p>Pedido feito com sucesso!</p>
-            <div className="infos">
+            <div className="infos" data-test="movie-info">
                 <h1>Filme e sessão</h1>
                 <p>{infoFilmeSessao?.movie.title}</p>
                 <p>{infoFilmeSessao?.day.date} {infoFilmeSessao?.name}</p>
             </div>
-            <div className="infos">
+            <div className="infos" data-test="seats-info">
                 <h1>Ingressos</h1>
                 {assentosSelecionados?.map((id)=> <AssentosEscolhidos id={id.name} key={id.name}/>)}
             </div>
-            <div className="infos">
+            <div className="infos" data-test="client-info">
                 <h1>Comprador</h1>
                 <p>Nome: {nome}</p>
                 <p>CPF: {cpf}</p>
             </div>
-            <button onClick={() => voltarHome()} >Voltar pra Home</button>
+            <button onClick={() => voltarHome()} data-test="go-home-btn" >Voltar pra Home</button>
         </EstiloSucesso>
     )
 }
