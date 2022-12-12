@@ -13,7 +13,7 @@ export default function Assentos(props) {
 
     const reserva = {
         ids: ids,
-        nome: {nome},
+        name: {nome},
         cpf:{cpf}
     }
 
