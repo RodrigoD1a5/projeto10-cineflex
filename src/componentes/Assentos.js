@@ -1,41 +1,60 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import styled from "styled-components"
 import { Container } from "../style/Container"
 import Assento from "./Assento"
 import Filme from "./Filme"
 
-export default function Assentos() {
-    const [listaAssentos , setListaAssentos]= useState(undefined)
-    const [assentosSelecionados, setAssentosSelecionados] = useState([])
-    const [nome ,setNome] = useState("")
-    const [cpf ,setCpf] = useState("")
-    
-    const parametro= useParams();
+export default function Assentos(props) {
+    const [listaAssentos, setListaAssentos] = useState(undefined)
+    const { assentosSelecionados, setAssentosSelecionados, setNome, nome, setCpf, cpf } = props
+
+    let ids= assentosSelecionados?.map((e)=> e.id)
+
+    const reserva = {
+        ids: ids,
+        nome: {nome},
+        cpf:{cpf}
+    }
+
+    console.log(reserva)
+
+    const parametro = useParams();
 
     useEffect(() => {
-	const requisicao = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${parametro.idSessao}/seats`);
-	requisicao.then(resposta => {
-		setListaAssentos(resposta.data);
-	})
-    requisicao.catch(() =>
-        alert("Falha ao obter os dados"));
-	}, []);
+        const requisicao = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${parametro.idSessao}/seats`);
+        requisicao.then(resposta => {
+            setListaAssentos(resposta.data);
+        })
+        requisicao.catch(() =>
+            alert("Falha ao obter os dados"));
+    }, []);
 
+    function enviarReserva(){
+        const requisicao= axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", reserva)
+        requisicao.then(()=>{
+            alert("Reserva concluída!")
+        })
+        requisicao.catch(()=>{
+            alert("Falha ao reservar!")
+        })
+        
+    }
 
-    function selecionarAssento(id, isAvailable){
-        if (!isAvailable){
+    function selecionarAssento(id, name, isAvailable) {
+        if (!isAvailable) {
             alert("Assento indisponível")
             return;
         }
         else {
-            if(assentosSelecionados.includes(id)){
-                const filtrarAssento = assentosSelecionados.filter((a)=> !(a === id))
+            if (ids?.includes(id)) {
+                const filtrarAssento = assentosSelecionados?.filter((a) => !(a.id === id))
                 setAssentosSelecionados([...filtrarAssento])
             }
-            else{
-                setAssentosSelecionados([...assentosSelecionados, id ])
+            else {
+                const obj = {id:id , name:name}
+                setAssentosSelecionados([...assentosSelecionados, obj])
             }
         }
     }
@@ -46,14 +65,14 @@ export default function Assentos() {
             <EstiloAssentos>
                 <div className="assentos">
 
-                    {listaAssentos?.seats.map((a) => 
-                    <Assento 
-                    id={a.id} 
-                    name={a.name} 
-                    isAvailable={a.isAvailable} 
-                    assentosSelecionados={assentosSelecionados} 
-                    selecionarAssento={selecionarAssento}
-                    key={a.id} />)}
+                    {listaAssentos?.seats.map((a) =>
+                        <Assento
+                            id={a.id}
+                            name={a.name}
+                            isAvailable={a.isAvailable}
+                            ids={ids}
+                            selecionarAssento={selecionarAssento}
+                            key={a.id} />)}
 
                 </div>
                 <div className="legendas">
@@ -72,13 +91,15 @@ export default function Assentos() {
                 </div>
                 <div className="dados">
                     <p>Nome do comprador:</p>
-                    <input placeholder="Digite seu nome..." onChange ={ e => setNome(e.target.value)} />
+                    <input placeholder="Digite seu nome..." onChange={e => setNome(e.target.value)} />
                 </div>
                 <div className="dados">
                     <p>CPF do comprador:</p>
-                    <input placeholder="Digite seu CPF..." onChange ={ e => setCpf(e.target.value)}/>
+                    <input placeholder="Digite seu CPF..." onChange={e => setCpf(e.target.value)} />
                 </div>
-                <button className="botao-reservar">Reservar assento(s)</button>
+                <Link to={`/sucesso/${parametro.idSessao}`}>
+                    <button className="botao-reservar" onClick={()=>enviarReserva()}>Reservar assento(s)</button>
+                </Link>
             </EstiloAssentos>
             <FooterAssentos>
                 <Filme posterURL={listaAssentos?.movie.posterURL} tamanho={"P"} />

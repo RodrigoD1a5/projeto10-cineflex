@@ -1,16 +1,16 @@
 import styled from "styled-components"
 
 export default function Assento(props) {
-    const { id, name, isAvailable , assentosSelecionados, selecionarAssento} = props
+    const { id, name, isAvailable , ids, selecionarAssento} = props
     
     return (
         <>  
-            {assentosSelecionados.includes(id)?
-            <EstiloAssentoSelecionado onClick={()=> selecionarAssento(id, isAvailable)}>
+            {ids?.includes(id)?
+            <EstiloAssentoSelecionado onClick={()=> selecionarAssento(id, name , isAvailable)}>
                 {name}
             </EstiloAssentoSelecionado>
             :
-            <EstiloAssento isAvailable={isAvailable} onClick={()=>selecionarAssento(id, isAvailable)} >
+            <EstiloAssento isAvailable={isAvailable} onClick={()=>selecionarAssento(id, name, isAvailable)} >
                 {name}
             </EstiloAssento>
             }

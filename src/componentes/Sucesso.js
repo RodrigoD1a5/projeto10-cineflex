@@ -1,26 +1,48 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { Container } from "../style/Container";
+import AssentosEscolhidos from "./AssentosEscolhidos";
+import { useNavigate } from "react-router-dom";
 
-export default function Sucesso(){
+export default function Sucesso(props){
+    const {setAssentosSelecionados ,assentosSelecionados, setNome, nome, setCpf,cpf} = props
+    const [infoFilmeSessao , setInfoFilmeSessao]= useState(undefined)
+    const parametro = useParams();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const requisicao = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${parametro.idSessao}/seats`);
+        requisicao.then(resposta => {
+            setInfoFilmeSessao(resposta.data);
+        })
+        requisicao.catch(() =>
+            alert("Falha ao obter os dados"));
+    }, []);
+    function voltarHome(){
+        navigate('/')
+        setAssentosSelecionados(undefined)    
+        setCpf("")
+        setNome("") 
+    }
     return(
         <EstiloSucesso>
             <p>Pedido feito com sucesso!</p>
             <div className="infos">
                 <h1>Filme e sessão</h1>
-                <p>Enola Holmes</p>
-                <p>24/06/2021 15:00</p>
+                <p>{infoFilmeSessao?.movie.title}</p>
+                <p>{infoFilmeSessao?.day.date} {infoFilmeSessao?.name}</p>
             </div>
             <div className="infos">
                 <h1>Ingressos</h1>
-                <p>Assento 15</p>
-                <p>Assento 16</p>
+                {assentosSelecionados?.map((id)=> <AssentosEscolhidos id={id.name} key={id.name}/>)}
             </div>
             <div className="infos">
                 <h1>Comprador</h1>
-                <p>Nome: João da Silva Sauro</p>
-                <p>CPF: 123.456.789-10</p>
+                <p>Nome: {nome}</p>
+                <p>CPF: {cpf}</p>
             </div>
-            <button>Voltar pra Home</button>
+            <button onClick={() => voltarHome()} >Voltar pra Home</button>
         </EstiloSucesso>
     )
 }
