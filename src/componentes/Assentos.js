@@ -7,8 +7,7 @@ import Assento from "./Assento"
 import Filme from "./Filme"
 
 export default function Assentos(props) {
-    const [listaAssentos, setListaAssentos] = useState(undefined)
-    const { assentosSelecionados, setAssentosSelecionados, setNome, nome, setCpf, cpf } = props
+    const { listaAssentos, setListaAssentos, assentosSelecionados, setAssentosSelecionados, setNome, nome, setCpf, cpf } = props
 
     let ids= assentosSelecionados?.map((e)=> e.id)
 
@@ -97,7 +96,7 @@ export default function Assentos(props) {
                     <p>CPF do comprador:</p>
                     <input placeholder="Digite seu CPF..." onChange={e => setCpf(e.target.value)} />
                 </div>
-                <Link to={`/sucesso/${parametro.idSessao}`}>
+                <Link to="/sucesso">
                     <button className="botao-reservar" onClick={()=>enviarReserva()} data-test="book-seat-btn">Reservar assento(s)</button>
                 </Link>
             </EstiloAssentos>

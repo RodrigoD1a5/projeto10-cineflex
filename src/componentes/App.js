@@ -11,7 +11,7 @@ export default function App() {
   const [assentosSelecionados, setAssentosSelecionados] = useState([])
   const [nome, setNome] = useState("")
   const [cpf, setCpf] = useState("")
-   
+  const [listaAssentos, setListaAssentos] = useState(undefined)
   return (
     <BrowserRouter>
       <EstiloApp>
@@ -20,6 +20,8 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/sessoes/:idFilme" element={<Sessoes />} />
           <Route path="/assentos/:idSessao" element={<Assentos 
+            listaAssentos={listaAssentos}
+            setListaAssentos={setListaAssentos}
             assentosSelecionados={assentosSelecionados}
             setAssentosSelecionados={setAssentosSelecionados}
             setNome={setNome}
@@ -28,7 +30,8 @@ export default function App() {
             cpf={cpf}/>} 
           />
 
-          <Route path="/sucesso/:idSessao" element={<Sucesso
+          <Route path="/sucesso" element={<Sucesso
+            listaAssentos={listaAssentos}
             setAssentosSelecionados={setAssentosSelecionados}
             assentosSelecionados={assentosSelecionados}
             setNome={setNome}

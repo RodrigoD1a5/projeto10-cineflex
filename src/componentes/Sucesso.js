@@ -1,27 +1,23 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import AssentosEscolhidos from "./AssentosEscolhidos";
 import { useNavigate } from "react-router-dom";
 
 export default function Sucesso(props){
-    const {setAssentosSelecionados ,assentosSelecionados, setNome, nome, setCpf,cpf} = props
-    const [infoFilmeSessao , setInfoFilmeSessao]= useState(undefined)
-    const parametro = useParams();
+    const {listaAssentos, setAssentosSelecionados ,assentosSelecionados, setNome, nome, setCpf,cpf} = props
+    // const parametro = useParams();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const requisicao = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${parametro.idSessao}/seats`);
-        requisicao.then(resposta => {
-            setInfoFilmeSessao(resposta.data);
-        })
-        requisicao.catch(() =>
-            alert("Falha ao obter os dados"));
-    }, []);
+    // useEffect(() => {
+    //     const requisicao = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${parametro.idSessao}/seats`);
+    //     requisicao.then(resposta => {
+    //         setInfoFilmeSessao(resposta.data);
+    //     })
+    //     requisicao.catch(() =>
+    //         alert("Falha ao obter os dados"));
+    // }, []);
     function voltarHome(){
         navigate('/')
-        setAssentosSelecionados(undefined)    
+        setAssentosSelecionados([])    
         setCpf("")
         setNome("") 
     }
@@ -30,8 +26,8 @@ export default function Sucesso(props){
             <p>Pedido feito com sucesso!</p>
             <div className="infos" data-test="movie-info">
                 <h1>Filme e sessão</h1>
-                <p>{infoFilmeSessao?.movie.title}</p>
-                <p>{infoFilmeSessao?.day.date} {infoFilmeSessao?.name}</p>
+                <p>{listaAssentos?.movie.title}</p>
+                <p>{listaAssentos?.day.date} {listaAssentos?.name}</p>
             </div>
             <div className="infos" data-test="seats-info">
                 <h1>Ingressos</h1>
