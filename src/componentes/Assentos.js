@@ -90,11 +90,11 @@ export default function Assentos(props) {
                 </div>
                 <div className="dados" >
                     <p>Nome do comprador:</p>
-                    <input placeholder="Digite seu nome..." onChange={e => setNome(e.target.value)} data-test="client-name"/>
+                    <input placeholder="Digite seu nome..." value={nome} onChange={e => setNome(e.target.value)} data-test="client-name"/>
                 </div>
                 <div className="dados">
                     <p>CPF do comprador:</p>
-                    <input placeholder="Digite seu CPF..." onChange={e => setCpf(e.target.value)} data-test="client-cpf"/>
+                    <input placeholder="Digite seu CPF..." value={cpf} onChange={e => setCpf(e.target.value)} data-test="client-cpf"/>
                 </div>
                 <Link to="/sucesso">
                     <button className="botao-reservar" onClick={()=>enviarReserva()} data-test="book-seat-btn">Reservar assento(s)</button>
